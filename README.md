@@ -18,6 +18,13 @@ This project aims to develop an **AI-powered image classification model** that a
 - **Minimize downtime**
 - **Improve overall production quality**
 
+## 🚀 Live Demo
+
+Try the **Gear Classification Model** directly on **Hugging Face Spaces**:
+
+[🔗 Click here to try it](https://huggingface.co/spaces/rushikesh830/gear-classification)
+
+
 ### **🔍 Key Challenges Addressed**
 ✔ **Inconsistent Quality Control** → Eliminates subjective manual inspections and ensures uniform quality assessment.  
 ✔ **Reduced Efficiency** → Automates defect detection to accelerate production processes.  
