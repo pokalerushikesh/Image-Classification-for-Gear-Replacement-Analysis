@@ -1,22 +1,27 @@
-import streamlit as st
+import gradio as gr
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-import torchvision.models as models
-import gdown
+import pickle
+import requests
 import os
 
-# Define the model path and download if not present
-MODEL_PATH = "gear_classifier_finetuned.pth"
-MODEL_URL = "https://drive.google.com/uc?id=1mruQYU_iGBIG0pC2M778AyI8Nixe8iPx"  # Direct Google Drive link
+# Hugging Face Model URL
+MODEL_URL = "https://huggingface.co/rushikesh830/gear-classification-model/resolve/main/gear_classifier.pkl"
+MODEL_PATH = "gear_classifier.pkl"
 
-# Download the model from Google Drive if not found locally
+# Download the model if not already present
 if not os.path.exists(MODEL_PATH):
-    st.info("Downloading model file...")
-    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+    print("Downloading model from Hugging Face...")
+    response = requests.get(MODEL_URL)
+    with open(MODEL_PATH, "wb") as f:
+        f.write(response.content)
+    print("Model downloaded successfully!")
 
-# Load the Entire Model
-model = torch.load(MODEL_PATH, map_location=torch.device("cpu"))
+# Load the Pickle Model
+with open(MODEL_PATH, "rb") as f:
+    model = pickle.load(f)
+
 model.eval()  # Set to evaluation mode
 
 # Define Class Labels
@@ -28,32 +33,34 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# Streamlit UI
-st.title("Gear Classification App")
-st.write("Upload an image of a gear to classify it as **Damaged**, **Rusty**, or **Undamaged**.")
-
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-
-if uploaded_file is not None:
-    image = Image.open(uploaded_file).convert("RGB")  # Ensure it's a 3-channel image
-    st.image(image, caption="Uploaded Image", use_column_width=True)
-    
-    # Preprocess Image
+# Prediction Function
+def predict(image):
     image = transform(image).unsqueeze(0)  # Add batch dimension
 
-    # Make Prediction
     with torch.no_grad():
         output = model(image)
         _, predicted = torch.max(output, 1)
         predicted_class = class_labels[predicted.item()]
 
-    # Display Prediction
-    st.write(f"### Prediction: **{predicted_class}**")
-
-    # Show Maintenance Recommendation
+    # Maintenance Recommendation
+    recommendation = ""
     if predicted_class == "rusty_gears":
-        st.warning("⚠️ **Maintenance Required**: The gear appears to be rusted. Regular maintenance is recommended.")
+        recommendation = "⚠️ Maintenance Required"
     elif predicted_class == "damaged_gears":
-        st.error("❌ **Replacement Required**: The gear is damaged and may need replacement.")
+        recommendation = "❌ Replacement Required"
     else:
-        st.success("✅ **No Issues Detected**: The gear appears to be in good condition.")
+        recommendation = "✅ No Issues Found"
+
+    return predicted_class, recommendation
+
+# Gradio Interface
+iface = gr.Interface(
+    fn=predict,
+    inputs=gr.Image(type="pil"),
+    outputs=[gr.Text(label="Predicted Class"), gr.Text(label="Maintenance Recommendation")],
+    title="Gear Classification",
+    description="Upload an image of a gear to classify it as Rusty, Undamaged, or Damaged."
+)
+
+if __name__ == "__main__":
+    iface.launch(share=True)
