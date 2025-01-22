@@ -33,7 +33,19 @@ Try the **Gear Classification Model** directly on **Hugging Face Spaces**:
 Our **deep learning model**, trained on real-world gear images, classifies gear conditions with high accuracy, ensuring manufacturers can **streamline quality assurance processes** and **reduce operational risks**.
 
 ---
+## 📂 Dataset
 
+The dataset used for training the **Gear Classification Model** is available on Kaggle.
+
+[🔗 Click here to access the dataset](https://www.kaggle.com/datasets/jatinray/gears-defected-datasets)
+
+### 📌 Dataset Overview:
+- **Contains:** Images of gears categorized into **damaged, rusted, and undamaged**.
+- **Purpose:** Used for training a deep learning model to automate gear defect detection.
+- **Format:** Image dataset suitable for **image classification tasks**.
+
+
+---
 ## **🚀 Features**
 ✔ **Image Classification**: Classifies images into three categories – *Rusty Gears, Damaged Gears, and Undamaged Gears*.  
 ✔ **Pretrained ResNet-18 Model**: Utilizes transfer learning for improved accuracy.  
