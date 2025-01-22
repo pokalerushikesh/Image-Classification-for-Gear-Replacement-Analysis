@@ -5,6 +5,16 @@
 ![GitHub](https://img.shields.io/badge/Framework-PyTorch-red.svg)  
 ![GitHub](https://img.shields.io/badge/Deployment-Hugging%20Face-orange.svg)  
 ![GitHub](https://img.shields.io/badge/ML%20Model-ResNet18-blue.svg)  
+![GitHub](https://img.shields.io/badge/Web%20Framework-Gradio-purple.svg)  
+![GitHub](https://img.shields.io/badge/Library-Torchvision-yellow.svg)  
+![GitHub](https://img.shields.io/badge/Computer%20Vision-OpenCV-9cf.svg)  
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/pokalerushikesh/Image-Classification-for-Gear-Replacement-Analysis) 
+![GitHub](https://img.shields.io/badge/Optimization-Adam%20Optimizer-blueviolet.svg)  
+![GitHub](https://img.shields.io/badge/Loss%20Function-Cross%20Entropy-ff69b4.svg)  
+![GitHub](https://img.shields.io/badge/Preprocessing-Pandas%20%7C%20NumPy-lightgrey.svg)  
+![GitHub](https://img.shields.io/badge/Visualization-Matplotlib%20%7C%20Seaborn-ff9f00.svg)  
+![GitHub](https://img.shields.io/badge/GPU-Apple%20Metal%20%7C%20CUDA-important.svg)  
+ 
 
 ---
 
@@ -81,7 +91,9 @@ The dataset used for training the **Gear Classification Model** is available on 
 
 │── assets/ # Sample images for testing
 
-echo "## 📝 Model Performance
+---
+
+## 📝 Model Performance
 
 - **Training Accuracy**: **92%**
 - **Testing Accuracy**: **100%** _(Experimental fine-tuning beyond 92% was done for learning purposes.)_
